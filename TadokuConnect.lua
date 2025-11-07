@@ -20,11 +20,11 @@ end
 
 function TadokuConnect:get_latest_contest()
     local our_uri = self:get_url() .. "contests/latest-official"
-    return self:general_get(our_uri)
+    return json.decode(self:general_get(our_uri))
 end
 
 function TadokuConnect:get_current_leaderboard()
-    local latest_contest = json.decode(self:get_latest_contest())
+    local latest_contest = self:get_latest_contest()
     local leaderboard = self:general_get(self:get_url() .. "contests/" .. latest_contest.id .. "/leaderboard")
     return leaderboard
 end
