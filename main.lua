@@ -39,8 +39,10 @@ local function defer_top3()
     local raw_top = TadokuConnect:get_top_x(3)
     local res = {}
     for i = 1, 3 do
+        local toInsert = "▒▒ "
+        toInsert = toInsert .. i .. " ▒▒ " .. raw_top[i].name .. " ░ " .. raw_top[i].score
         table.insert(res, {
-            _(i .. ":  " .. raw_top[i].name .. "|" .. raw_top[i].score),
+            text = toInsert,
             keep_menu_open = true,
         })
     end
@@ -70,6 +72,7 @@ function Tadoku:getSubMenuItems()
         },
         {
             text = _("See Top 3"),
+            keep_menu_open = true,
             sub_item_table_func = function()
                 return defer_top3()
             end,
